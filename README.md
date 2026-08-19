@@ -48,3 +48,44 @@ Branching & workflow
 - `dev` — active development branch.
 - Feature branches: `feature/<short-name>`, PRs to `dev`.
 - Tagging: use semantic tags for release builds, e.g., `v0.1
+
+2. Open Unity Hub and add the project `unity/` using the chosen Unity LTS version.
+3. Install required Unity packages: XR Interaction Toolkit, Input System (if needed), Addressables (optional).
+
+Run a local development build (Unity)
+------------------------------------
+1. Open the Unity project, switch platform to the target HMD (Android/Quest or PCVR).
+2. In `Build Settings`, add the scenes:
+- `Scenes/Calibration.unity`
+- `Scenes/GrandCanyon.unity`
+- `Scenes/Finnmark.unity`
+- `Scenes/Neutral.unity`
+3. Ensure `Player Settings` has the correct company name, bundle id, and WebSocket permission if using Quest.
+4. Press Play for editor testing. Note: in-editor PPG integration may be stubbed or use microphone/keyboard test inputs.
+
+Local agent integration (your agent, run locally)
+-------------------------------------------------
+We assume you run your own agent locally (no external GuestXR kiln). The Unity client connects to your agent via WebSocket. Default endpoints (configurable in `Assets/Config/connection.json`):
+
+- Agent WebSocket (suggestion feed):
+- `ws://localhost:9001/agent`   — Unity -> Agent: send `{ "type":"sensor_update", "session_id": "...", "hr": 86.4, "nlp_markers": {...} }`
+- Agent -> Unity: `{ "type":"suggestion", "action":"increase", "target_level":3, "message":"Maintain level 3 for 60s", "confidence":0.82 }`
+
+- Dashboard WebSocket:
+- `ws://localhost:9002/dashboard` — Unity publishes telemetry; dashboard posts operator actions.
+
+Message examples
+- Unity sends sensor update:
+```json
+{
+ "type": "sensor_update",
+ "session_id": "GXR2026_0001",
+ "timestamp_utc": "2026-09-21T10:13:44Z",
+ "hr_bpm": 86.4,
+ "nlp": {
+   "speech_latency_ms": 400,
+   "keyword_hits": ["fall", "freeze"],
+   "valence_score": -0.78
+ },
+ "trial_number": 2
+}
