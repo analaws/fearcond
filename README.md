@@ -1,19 +1,21 @@
 # fearcond
 
-# VRET PhD Project Kamilla Bergsnev — Unity Experiments (Grand Canyon & Finnmark)
+# VRET PhD Project — Unity Experiments (Grand Canyon & Finnmark)
 
 Overview
 --------
 This repository contains the Unity experiments and supporting code for:
 - Main PhD experiment: Grand Canyon AI‑augmented VRET (inhibitory‑learning / expectancy‑violation focus).
-- Secondary project (with Ana Luisa Sanchez Laws): Finnmark Crisis Preparedness V‑CBAT (core educational demo + research subsample with randomized assets).
+- Secondary project: Finnmark Crisis Preparedness V‑CBAT (core educational demo + research subsample with randomized assets).
 
 This README gives the developer quickstart, run/build instructions, event logging conventions, and how Unity integrates with the local AI agent and clinician dashboard.
 
 Contacts
 --------
-- PhD lead: Kamilla Bergsnev, kamilla.bergsnev@gmail.com
-- Developer: Ana Luisa Sanchez Laws, ana.l.laws@uit.no
+- PhD lead: [Name] — [email]
+- Developer: [Name]
+- Clinical advisor (on‑call): [Name] — [phone/email]
+- Master operators: [Names]
 
 Repo layout
 ----------
@@ -35,7 +37,7 @@ Core decisions (immutable for data integrity)
 
 Prerequisites (developer)
 -------------------------
-- Unity LTS: 2021.3.x or 2022.3.x
+- Unity LTS: 2021.3.x or 2022.3.x (specify exact version here)
 - XR plugin: OpenXR (or Oculus integration if targeting Quest). Install XR Interaction Toolkit.
 - Node.js (LTS) and npm — for dashboard dev (if using web dashboard)
 - Git, git-lfs (if large assets)
@@ -47,7 +49,11 @@ Branching & workflow
 - `main` — protected; stable release builds only.
 - `dev` — active development branch.
 - Feature branches: `feature/<short-name>`, PRs to `dev`.
-- Tagging: use semantic tags for release builds, e.g., `v0.1
+- Tagging: use semantic tags for release builds, e.g., `v0.1.0-pilot`.
+
+Quickstart — clone & open
+-------------------------
+1. Clone: git clone cd
 
 2. Open Unity Hub and add the project `unity/` using the chosen Unity LTS version.
 3. Install required Unity packages: XR Interaction Toolkit, Input System (if needed), Addressables (optional).
