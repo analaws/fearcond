@@ -1,0 +1,146 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "VRET Session Event",
+  "description": "Atomic event record written as one JSON object per line (JSONL). Use ISO 8601 UTC timestamps.",
+  "type": "object",
+  "required": [
+    "session_id",
+    "participant_id",
+    "timestamp_utc",
+    "event_type"
+  ],
+  "properties": {
+    "session_id": {
+      "type": "string",
+      "description": "Unique session identifier (e.g., GXR2026_0001)"
+    },
+    "participant_id": {
+      "type": "string",
+      "description": "De-identified participant code (e.g., SUBJ_001)"
+    },
+    "condition": {
+      "type": "string",
+      "enum": ["AI", "Manual", "Demo", "Unknown"],
+      "description": "Study condition assignment"
+    },
+    "operator_id": {
+      "type": ["string", "null"],
+      "description": "Operator initials or id"
+    },
+    "timestamp_utc": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Event timestamp in ISO 8601 UTC"
+    },
+    "event_type": {
+      "type": "string",
+      "description": "Event type identifier",
+      "enum": [
+        "session_start",
+        "session_end",
+        "baseline_start",
+        "baseline_end",
+        "trial_start",
+        "trial_end",
+        "pre_expectancy",
+        "pre_SUDS",
+        "exposure_start",
+        "exposure_end",
+        "exposure_level_change",
+        "agent_suggestion",
+        "operator_action",
+        "accept",
+        "override",
+        "override_reason",
+        "emergency_stop",
+        "debrief",
+        "adverse_event",
+        "audio_recorded",
+        "screenshot",
+        "upload_complete"
+      ]
+    },
+    "trial_number": {
+      "type": ["integer", "null"],
+      "minimum": 0,
+      "description": "Trial index (0 for baseline)"
+    },
+    "exposure_level": {
+      "type": ["integer", "null"],
+      "minimum": 0,
+      "description": "Numeric exposure level (0..N)"
+    },
+    "agent_suggestion_text": {
+      "type": ["string", "null"]
+    },
+    "suggestion_id": {
+      "type": ["string", "null"],
+      "description": "Unique id for agent suggestion (if applicable)"
+    },
+    "operator_action": {
+      "type": ["string", "null"],
+      "enum": ["accept", "override", "defer", "none", null]
+    },
+    "override_reason_code": {
+      "type": ["string", "null"],
+      "enum": ["safety", "participant_request", "tech_issue", "other", null]
+    },
+    "override_reason_text": {
+      "type": ["string", "null"]
+    },
+    "hr_bpm": {
+      "type": ["number", "null"],
+      "description": "Heart rate (beats per minute) at event time"
+    },
+    "hrv_rmssd_ms": {
+      "type": ["number", "null"],
+      "description": "Short-term RMSSD estimate in ms (if available)"
+    },
+    "scr_us": {
+      "type": ["number", "null"],
+      "description": "Skin conductance (microsiemens) if available"
+    },
+    "composite_arousal_z": {
+      "type": ["number", "null"],
+      "description": "Composite arousal z-score (computed client-side)"
+    },
+    "pre_expectancy": {
+      "type": ["integer", "null"],
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Pre-trial expectancy rating 0-100"
+    },
+    "pre_SUDS": {
+      "type": ["integer", "null"],
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Pre-trial SUDS 0-100"
+    },
+    "post_SUDS": {
+      "type": ["integer", "null"],
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Post-trial SUDS 0-100"
+    },
+    "presence_score": {
+      "type": ["number", "null"],
+      "description": "Presence measure (e.g., IPQ) reported post-session"
+    },
+    "ssq_score": {
+      "type": ["number", "null"],
+      "description": "Simulator Sickness Questionnaire aggregate score (if used)"
+    },
+    "audio_clip_id": {
+      "type": ["string", "null"],
+      "description": "Filename or identifier of de-identified short audio clip"
+    },
+    "notes": {
+      "type": ["string", "null"]
+    },
+    "data_file_checksum": {
+      "type": ["string", "null"],
+      "description": "sha256 or md5 checksum for paired raw data file integrity"
+    }
+  },
+  "additionalProperties": false
+}
