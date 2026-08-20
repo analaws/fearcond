@@ -117,7 +117,8 @@ Operator action (dashboard -> unity -> logged event):
   "override_reason_code": null
 }`
 
-Logging & file locations
+**Logging & file locations**
+
 Local log directory on operator PC (configurable): ./logs/sessions/. Each session is a folder session_<session_id>/ containing:
 events.jsonl — atomic events in chronological order
 physio.csv — raw physiological export (if device provides)
@@ -126,13 +127,15 @@ screenshot/ — optional scene capture at peak event
 metadata.json — session metadata (session_id, participant_id, condition, environment_id, asset_pair)
 After session end, a script scripts/upload_session.sh session_<id> bundles and uploads to secure server (SFTP) and writes checksum.
 
-Event schema
+**Event schema**
+
 See /data_schema/event_schema.json (contains the full JSON Schema). Use a simple validator during dev:
 
 python3 -m pip install jsonschema
 python3 scripts/validate_event.py events.jsonl data_schema/event_schema.json
 
-Development notes & priorities
+**Development notes & priorities**
+
 Implement event logger and JSONL writes first (critical).
 Implement PPG integration and basic smoothing/peak detection.
 Implement agent WebSocket stub and suggestion handling.
@@ -141,14 +144,17 @@ Implement Grand Canyon scene flow and objective V-BAT metrics.
 Implement Finnmark scene skeleton, asset pool, and randomization engine.
 Pilot & iterate.
 
-Pilot checklist (minimum)
+**Pilot checklist (minimum)**
+
 Event logging verified for 10 consecutive sessions; timestamps sync within 200 ms.
 HR stream present and peaks visible for expected trials.
 Operator can accept/override agent suggestions; events recorded.
 No crash for the full pilot session sequence.
 Data uploaded to secure server and validated against schema.
 
-Operator quick guide (one-liner)
+**
+Operator quick guide (one-liner)**
+
 Turn on devices and check connections.
 Start dashboard server: cd dashboard && npm start.
 Start Unity operator build and connect to dashboard.
@@ -156,13 +162,16 @@ Start sensors, press baseline, confirm HR visible.
 Start session, follow on-screen prompts; use stop button if required.
 After session run scripts/upload_session.sh <session_id>.
 
-Support & escalation
+**Support & escalation**
+
 Developer issues: open GitHub issue with [dev] tag.
 Data / ethics incidents: notify PhD lead immediately; log incident to /ops/incidents.log.
 
-License & attribution
+**License & attribution**
+
 BSD-3 Clause. 
 Third‑party assets and license constraints (Unity Asset Store packs, audio, etc.):
 
-Acknowledgements
+**Acknowledgements**
+
 This project builds on the GuestXR architecture developed together with Bernhard Spanlang (Kiin / VirtualBodyworks) conceptually; the local agent implementation is custom code owned by the research team.
